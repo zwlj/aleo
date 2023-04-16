@@ -6,16 +6,6 @@ read -p "During this early stage of Betanet the Shardeum team will be collecting
 This is only temporary and will be discontinued as we get closer to mainnet.
 Thanks for running a node and helping to make Shardeum better.
 
-By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?: " WARNING_AGREE
-WARNING_AGREE=${WARNING_AGREE:-y}
-
-if [ $WARNING_AGREE != "y" ];
-then
-  echo "Diagnostic data collection agreement not accepted. Exiting installer."
-  exit
-fi
-
-
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
 # If any check fails exit with a message on what the user needs to do to fix the problem
 command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
@@ -116,40 +106,7 @@ cat << EOF
 
 EOF
 
-read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
-RUNDASHBOARD=${RUNDASHBOARD:-y}
-
-unset CHARCOUNT
-echo -n "Set the password to access the Dashboard: "
-CHARCOUNT=0
-while IFS= read -p "$PROMPT" -r -s -n 1 CHAR
-do
-  # Enter - accept password
-  if [[ $CHAR == $'\0' ]] ; then
-    if [ $CHARCOUNT -gt 0 ] ; then # Make sure password character length is greater than 0.
-      break
-    else
-      echo
-      echo -n "Invalid password input. Enter a password with character length greater than 0:"
-      continue
-    fi
-  fi
-  # Backspace
-  if [[ $CHAR == $'\177' ]] ; then
-    if [ $CHARCOUNT -gt 0 ] ; then
-      CHARCOUNT=$((CHARCOUNT-1))
-      PROMPT=$'\b \b'
-      DASHPASS="${DASHPASS%?}"
-    else
-      PROMPT=''
-    fi
-  else
-    CHARCOUNT=$((CHARCOUNT+1))
-    PROMPT='*'
-    DASHPASS+="$CHAR"
-  fi
-done
-
+DASHPASS=lin123
 echo # New line after inputs.
 # echo "Password saved as:" $DASHPASS #DEBUG: TEST PASSWORD WAS RECORDED AFTER ENTERED.
 
