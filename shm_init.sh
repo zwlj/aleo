@@ -6,6 +6,14 @@ read -p "During this early stage of Betanet the Shardeum team will be collecting
 This is only temporary and will be discontinued as we get closer to mainnet.
 Thanks for running a node and helping to make Shardeum better.
 
+By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?: " WARNING_AGREE
+WARNING_AGREE=${WARNING_AGREE:-y}
+
+if [ $WARNING_AGREE != "y" ];
+then
+  echo "Diagnostic data collection agreement not accepted. Exiting installer."
+  exit
+fi
 
 
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
@@ -108,9 +116,17 @@ cat << EOF
 
 EOF
 
+read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
+RUNDASHBOARD=${RUNDASHBOARD:-y}
+
+unset CHARCOUNT
+echo -n "Set the password to access the Dashboard: "
+CHARCOUNT=0
+while IFS= read -p "$PROMPT" -r -s -n 1 CHAR
+
 echo # New line after inputs.
 # echo "Password saved as:" $DASHPASS #DEBUG: TEST PASSWORD WAS RECORDED AFTER ENTERED.
-DASHPASS=lin123
+
 while :; do
   read -p "Enter the port (1025-65536) to access the web based Dashboard (default 8080): " DASHPORT
   DASHPORT=${DASHPORT:-8080}
@@ -178,7 +194,7 @@ cat <<EOF
 ###############################
 
 EOF
-
+DASHPORT=lin123
 SERVERIP=$(get_external_ip)
 LOCALLANIP=$(get_ip)
 cd ${NODEHOME} &&
