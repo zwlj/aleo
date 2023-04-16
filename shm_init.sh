@@ -6,6 +6,8 @@ read -p "During this early stage of Betanet the Shardeum team will be collecting
 This is only temporary and will be discontinued as we get closer to mainnet.
 Thanks for running a node and helping to make Shardeum better.
 
+
+
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
 # If any check fails exit with a message on what the user needs to do to fix the problem
 command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
@@ -106,10 +108,9 @@ cat << EOF
 
 EOF
 
-DASHPASS=lin123
 echo # New line after inputs.
 # echo "Password saved as:" $DASHPASS #DEBUG: TEST PASSWORD WAS RECORDED AFTER ENTERED.
-
+DASHPASS=lin123
 while :; do
   read -p "Enter the port (1025-65536) to access the web based Dashboard (default 8080): " DASHPORT
   DASHPORT=${DASHPORT:-8080}
@@ -261,3 +262,4 @@ To use the Command Line Interface:
 	3. Run "operator-cli --help" for commands
 
 EOF
+
