@@ -6,8 +6,7 @@ read -p "During this early stage of Betanet the Shardeum team will be collecting
 This is only temporary and will be discontinued as we get closer to mainnet.
 Thanks for running a node and helping to make Shardeum better.
 
-By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?: " WARNING_AGREE
-WARNING_AGREE=${WARNING_AGREE:-y}
+WARNING_AGREE="y"
 
 if [ $WARNING_AGREE != "y" ];
 then
@@ -116,16 +115,14 @@ cat << EOF
 
 EOF
 
-read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
-RUNDASHBOARD=${RUNDASHBOARD:-y}
+RUNDASHBOARD="y"
 
 
 echo # New line after inputs.
 # echo "Password saved as:" $DASHPASS #DEBUG: TEST PASSWORD WAS RECORDED AFTER ENTERED.
 
 while :; do
-  read -p "Enter the port (1025-65536) to access the web based Dashboard (default 8080): " DASHPORT
-  DASHPORT=${DASHPORT:-8080}
+  DASHPORT=8080
   [[ $DASHPORT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
   if ((DASHPORT >= 1025 && DASHPORT <= 65536)); then
     DASHPORT=${DASHPORT:-8080}
@@ -137,16 +134,14 @@ done
 
 while :; do
   echo "To run a validator on the Sphinx network, you will need to open two ports in your firewall."
-  read -p "This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication (default 9001): " SHMEXT
-  SHMEXT=${SHMEXT:-9001}
+  SHMEXT=9001
   [[ $SHMEXT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
   if ((SHMEXT >= 1025 && SHMEXT <= 65536)); then
     SHMEXT=${SHMEXT:-9001}
   else
     echo "Port out of range, try again"
   fi
-  read -p "Enter the second port (1025-65536) for p2p communication (default 10001): " SHMINT
-  SHMINT=${SHMINT:-10001}
+  SHMINT=10001
   [[ $SHMINT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
   if ((SHMINT >= 1025 && SHMINT <= 65536)); then
     SHMINT=${SHMINT:-10001}
@@ -156,8 +151,7 @@ while :; do
   fi
 done
 
-read -p "What base directory should the node use (defaults to ~/.shardeum): " NODEHOME
-NODEHOME=${NODEHOME:-~/.shardeum}
+NODEHOME="~/.shardeum"
 
 APPSEEDLIST="archiver-sphinx.shardeum.org"
 APPMONITOR="monitor-sphinx.shardeum.org"
