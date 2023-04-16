@@ -131,7 +131,7 @@ while :; do
   fi
 done
 
-NODEHOME='~/.shardeum'
+NODEHOME="~/.shardeum"
 
 APPSEEDLIST="archiver-sphinx.shardeum.org"
 APPMONITOR="monitor-sphinx.shardeum.org"
