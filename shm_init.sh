@@ -119,10 +119,6 @@ EOF
 read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
 RUNDASHBOARD=${RUNDASHBOARD:-y}
 
-unset CHARCOUNT
-echo -n "Set the password to access the Dashboard: "
-CHARCOUNT=0
-while IFS= read -p "$PROMPT" -r -s -n 1 CHAR
 
 echo # New line after inputs.
 # echo "Password saved as:" $DASHPASS #DEBUG: TEST PASSWORD WAS RECORDED AFTER ENTERED.
