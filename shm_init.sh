@@ -6,7 +6,7 @@ read -p "During this early stage of Betanet the Shardeum team will be collecting
 This is only temporary and will be discontinued as we get closer to mainnet.
 Thanks for running a node and helping to make Shardeum better.
 
-WARNING_AGREE="y"
+WARNING_AGREE='y'
 
 if [ $WARNING_AGREE != "y" ];
 then
@@ -115,7 +115,7 @@ cat << EOF
 
 EOF
 
-RUNDASHBOARD="y"
+RUNDASHBOARD='y'
 
 
 echo # New line after inputs.
@@ -151,7 +151,7 @@ while :; do
   fi
 done
 
-NODEHOME="~/.shardeum"
+NODEHOME='~/.shardeum'
 
 APPSEEDLIST="archiver-sphinx.shardeum.org"
 APPMONITOR="monitor-sphinx.shardeum.org"
