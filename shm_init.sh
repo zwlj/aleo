@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
+# Set variables with default values
+DASHPORT=8080
+SHMEXT=9001
+SHMINT=10001
+NODEHOME=~/.shardeum
+RUNDASHBOARD='y'
 
-read -p "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
+echo "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
 This is only temporary and will be discontinued as we get closer to mainnet.
-Thanks for running a node and helping to make Shardeum better.
+Thanks for running a node and helping to make Shardeum better."
 
+# Automatically agree to data collection
 WARNING_AGREE='y'
 
-if [ $WARNING_AGREE != "y" ];
-then
-  echo "Diagnostic data collection agreement not accepted. Exiting installer."
-  exit
-fi
-
-
-# Check all things that will be needed for this script to succeed like access to docker and docker-compose
-# If any check fails exit with a message on what the user needs to do to fix the problem
+# Check for required tools and services
 command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
 command -v docker >/dev/null 2>&1 || { echo >&2 "'docker' is required but not installed. See https://gitlab.com/shardeum/validator/dashboard/-/tree/dashboard-gui-nextjs#how-to for details."; exit 1; }
 if command -v docker-compose &>/dev/null; then
@@ -30,6 +29,7 @@ fi
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
+# Define helper functions
 docker-safe() {
   if ! command -v docker &>/dev/null; then
     echo "docker is not installed on this machine"
@@ -74,6 +74,7 @@ get_ip() {
   echo $ip
 }
 
+# Get external IP address
 get_external_ip() {
   external_ip=''
   external_ip=$(curl -s https://api.ipify.org)
@@ -86,35 +87,14 @@ get_external_ip() {
   if [[ -z "$external_ip" ]]; then
     external_ip=$(curl -s https://icanhazip.com/)
   fi
-    if [[ -z "$external_ip" ]]; then
+  if [[ -z "$external_ip" ]]; then
     external_ip=$(curl --header  "Host: icanhazip.com" -s 104.18.114.97)
   fi
   if [[ -z "$external_ip" ]]; then
-    external_ip=$(get_ip)
-    if [ $? -eq 0 ]; then
-      echo "The IP address is: $IP"
-    else
-      external_ip="localhost"
-    fi
+    external_ip="localhost"
   fi
   echo $external_ip
 }
-
-if [[ $(docker-safe info 2>&1) == *"Cannot connect to the Docker daemon"* ]]; then
-    echo "Docker daemon is not running"
-    exit 1
-else
-    echo "Docker daemon is running"
-fi
-
-cat << EOF
-
-#########################
-# 0. GET INFO FROM USER #
-#########################
-
-EOF
-
 RUNDASHBOARD='y'
 
 
