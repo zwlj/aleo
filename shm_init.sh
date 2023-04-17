@@ -190,7 +190,7 @@ cat <<EOF
 ###############################
 
 EOF
-DASHPASS=lin123
+DASHPASS=mogu123
 SERVERIP=$(get_external_ip)
 LOCALLANIP=$(get_ip)
 cd ${NODEHOME} &&
