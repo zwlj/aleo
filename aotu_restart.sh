@@ -1,12 +1,11 @@
 #!/bin/bash
 while :
 do
-docker exec shardeum-dashboard operator-cli status | grep stopped
+docker exec shardeum-dashboard operator-cli status | grep need-stake
 if [ $? -eq 0 ]
 then
-        echo $(date)
-        echo "START SHARDEUM"
-        docker exec shardeum-dashboard operator-cli start
+        echo "stake SHARDEUM"
+        docker exec shardeum-dashboard operator-cli stake 10
 fi
-sleep 5m
+sleep 2m
 done
